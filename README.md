@@ -98,6 +98,37 @@ IECの目的は、人とコンピュータとの間のコミュニケーショ�
 
 式中のFは、差分ベクトルの大きさを調整するための0から2までの重み定数であるスケールファクターである。
 
+### 2.2.  Revised Interactive Differential Evolution
+
+対話的進化計算(IEC)では、全体個体をユーザに提示して個体の評価を決定する。  
+空間比較が可能な静止画では、全個体を同時に比較・評価することが可能である。  
+そのため、この提示・評価方法はIECの多くの応用例で採用されている。  
+しかし、音や動画を評価する場合には、全ての個体を比較評価する方法は、ユーザの記憶判定の負荷が大きくなる。  
+これは、ユーザの脳の処理能力には限界があり、一度に多くの情報を処理することができないためである。  
+一般に、IECでは個体数がユーザの記憶力の限界を超えており、これらの提示方法で音や映像を評価することは適切ではないと言える。  
+
+この論文では、問題解決に用いたIECアルゴリズムは、ペア比較を用いた対話的差分進化(IDE)である。  
+ユーザは、提示された2つの個体を比較し、自分が好む方を選択するだけで評価を行うことができる。  
+ペアで個体を比較することで、ユーザの疲労を軽減する効果が期待できる。  
+ペア比較は、DEアルゴリズムのステップ(7)で示した基底ベクトルと試験ベクトルを用いて行う。  
+
+IDEは評価のためにユーザの主観的な価値判断を必要とする。  
+また、ユーザの疲労を軽減するために、異なるメカニズムによる三重比較や四重比較をベースとしたDEが提案され、研究されている。  
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=trial_{ij}&space;=&space;min_{ij}&space;&plus;&space;rand(0,&space;1)&space;*&space;(max_{ij}&space;-&space;min_{ij})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?trial_{ij}&space;=&space;min_{ij}&space;&plus;&space;rand(0,&space;1)&space;*&space;(max_{ij}&space;-&space;min_{ij})" title="trial_{ij} = min_{ij} + rand(0, 1) * (max_{ij} - min_{ij})" /></a>
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=min_{ij}&space;=&space;min(target_{ij},&space;mutant_{ij})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?min_{ij}&space;=&space;min(target_{ij},&space;mutant_{ij})" title="min_{ij} = min(target_{ij}, mutant_{ij})" /></a>
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=max_{ij}&space;=&space;max(target_{ij},&space;mutant_{ij})" target="_blank"><img src="https://latex.codecogs.com/gif.latex?max_{ij}&space;=&space;max(target_{ij},&space;mutant_{ij})" title="max_{ij} = max(target_{ij}, mutant_{ij})" /></a>
+
+この研究では、音の構成最適化に適応するために、従来のIDEアルゴリズムに2つの修正を加えた。  
+第一に、この研究では、構成された音はよく設計された音に由来する。  
+この第一の改訂の目的は、IDEでは、最適化音構成の探索範囲を実現可能な空間に制限することである。  
+第二に、従来のIDEの生成嗜好ベクトルは微分ベクトルのため、実現可能な音探索空間から外れやすい。  
+そこで、iとjをそれぞれ生成の指標、jを個体の指標とし、上記の式に示すようにクロスオーバー演算を修正する。  
+改訂したクロスオーバー演算では、目標ベクトルと変異ベクトルを比較し、最大値と最小値の範囲から乱数を生成する。  
+生成された乱数は、先に得られた最小値に加算され、実現可能な音探索空間内にできるだけ治るように試験ベクトルが生成される。
+
 ## 6. CONCLUSION
 
 この研究では、改訂された対話型差分進化を用いて、利用者の主観的な評価を反映した音作りの手法を提案した。  
